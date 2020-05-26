@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>EVENTYR TIIIIIID!!!!!!!!!!!!!</title>
+    <style>
+        button {
+            background-color: rgb(213, 171, 183);
+            border: 3px solid rgb(36, 35, 35);
+            border-radius: 15px;
+            padding: 5px 5px 5px 5px; 
+            font-family: fantasy;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="story"></div>
+    <div id="options"></div>
+    <br>
+    <button onclick="insertWord(this,1)">liten </button>
+    <button onclick="insertWord(this,1)">stor </button>
+    <button onclick="insertWord(this,1)">dårlig </button>
+    <br>
+    <br />
+    <button onclick="insertWord(this,2)">katt </button>
+    <button onclick="insertWord(this,2)">hund </button>
+    <button onclick="insertWord(this,2)">pølse </button>
+    <br>
+    <br />
+    <button onclick="insertWord(this,3)">danser </button>
+    <button onclick="insertWord(this,3)">stjeler </button>
+    <button onclick="insertWord(this,3)">gamer </button>
+    <br>
+    <br />
+    <button onclick="insertWord(this,4)">rosa </button>
+    <button onclick="insertWord(this,4)">rund </button>
+    <button onclick="insertWord(this,4)">magisk </button>
+    <br>
+    <br />
+    <button onclick="insertWord(this,5)">Nintendo Switch </button>
+    <button onclick="insertWord(this,5)">lefse </button>
+    <button onclick="insertWord(this,5)">bok </button>
+    <br>
+    <br />
+    <button onclick="insertWord(this,99)">Reset</button>
+
+    <script>
+
+        //testList = ["liten ","stor ","dårlig "]
+        //testList.forEach(word => {
+        //    document.getElementById("options") +=
+        //        "<button onclick='insertWord(this,1)'>${word}</button><br>";
+        //});
+
+        //model
+        var option1 = " ___ ";
+        var option2 = " ___ ";
+        var option3 = " ___ ";
+        var option4 = " ___ ";
+        var option5 = " ___ ";
+
+        //view
+        view();
+        function view() {
+            document.getElementById("story").innerHTML =
+                "Dette er en historie om en " +
+                option1 + option2 +
+                "som " +
+                option3 +
+                " med en " + option4 + option5;
+        }
+
+        //controller
+        function insertWord(word, wordNumber) {
+            if (wordNumber == 1) {
+                option1 = word.innerHTML;
+            }
+            if (wordNumber == 2) {
+                option2 = word.innerHTML;
+            }
+            if (wordNumber == 3) {
+                option3 = word.innerHTML;
+            }
+            if (wordNumber == 4) {
+                option4 = word.innerHTML;
+            }
+            if (wordNumber == 5) {
+                option5 = word.innerHTML;
+            }
+            if (wordNumber == 99) {
+                option1 = option2 = option3 = option4 = option5 = " __ ";
+            }
+            view();
+        }
+
+        
+    </script>
+</body>
+</html>
