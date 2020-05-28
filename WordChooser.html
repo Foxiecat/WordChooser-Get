@@ -1,37 +1,67 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <!--
+        
+        ### TO-DO! ###
+
+        -- main tasks --
+        + make the option divs (containing all the buttons) using the loop instead of manually creating divs or tables
+        + make buttons look and feel nice
+            + visual feedback on mouseover and on click
+                + simple CSS style change that can be applied to all buttons regardless of colour.
+                    + change third RGB colour value by X amount, set specific colour, set font, set size, etc., many options.
+        + make story more interesting
+        + add more words
+            + make it less overwhelming to have many words
+                + present x amount of random words from huge wordlistlist????     ?     ???
+        + make the page background look nicer
+            + colours? gradients? pictures!?
+        + organise code better according to model-view-controller
+            
+        -- random extra possibilities for the future that may or may not ever happen --
+        + incorporate Norwegian grammar rules???
+            + auto-inserting gender articles, i.e "en katt" vs "et eple" vs "ei jente" without including them in the wordlists
+        + make a Norwegian text-to-speech generator tell the final story
+
+    -->
 <head>
     <meta charset="utf-8" />
-    <title>EVENTYR TIIIIIID!!!!!!!!!!!!!</title>
+    <title>WordChooser Story Generator</title>
     <style>
         body {
-            user-select: none;
-        }
-        button {
-            border-radius: 15px;
-            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size:25px;
-            background-color: lightgrey;
-            margin:2px;
+            user-select:none;
+            text-align:center;    
         }
         #story {
             font-size: 40px;
             font-family:'Courier New', Courier, monospace;
             margin: 12px;
             font-weight:bolder;
+            line-height:90px;
+        }
+        /* this will be used for creating columns when the table is gone
+        #main {
 
+        }
+        */
+        .colourBoxes {
+            border: 30px;
+            border-radius: 5px;
+            font-family: fantasy;
+            padding: 3px;
+            margin: 6px;
+        }
+        button {
+            border-radius: 15px;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size:25px;
+            background-color: lightgrey;
+            margin:2px; 
         }
         #option1 {
             background-color: rgb(219, 17, 74);
             color:rgb(219, 17, 74);
-            border:8px;
-            border-radius: 4px;
-            font-family: fantasy;
-            padding: 3px;
-            margin:6px;
-            padding: 3px;
-            margin:6px;
         }
         #optionButton1 {
             color:rgb(235, 221, 30);
@@ -41,11 +71,6 @@
         #option2 {
             background-color: rgb(132, 223, 29);
             color:rgb(132, 223, 29);
-            border: 8px;
-            border-radius: 4px;
-            font-family: fantasy;
-            padding: 3px;
-            margin:6px;
         }
         #optionButton2 {
             color:rgb(13, 50, 105);
@@ -55,11 +80,6 @@
         #option3 {
             background-color: rgb(56, 164, 207);
             color:rgb(56, 164, 207);
-            border: 8px;
-            border-radius: 4px;
-            font-family: fantasy;
-            padding: 3px;
-            margin:6px;
         }
         #optionButton3 {
             color:rgb(255, 238, 0);
@@ -69,11 +89,6 @@
         #option4 {
             background-color: rgb(243, 231, 61);
             color:rgb(243, 231, 61);
-            border: 8px;
-            border-radius: 4px;
-            font-family: fantasy;
-            padding: 3px;
-            margin:6px;
         }
         #optionButton4 {
             color:rgb(194, 15, 54);
@@ -83,11 +98,6 @@
         #option5 {
             background-color: rgb(146, 42, 206);
             color:rgb(146, 42, 206);
-            border: 8px;
-            border-radius: 4px;
-            font-family: fantasy;
-            padding: 3px;
-            margin:6px;
         }
         #optionButton5 {
             color:rgb(70, 211, 180);
@@ -99,7 +109,19 @@
 </head>
 <body>
     <div id="story"></div>
-    <div id="options"></div>
+    <!-- simplify these, and/or create them through the wordListList forEach loop as divs(?) instead of creating them manually -->
+    <div id="main">
+        <table>
+            <tr>
+            <td><div id="options0"></div></td>
+            <td><div id="options0"></div></td>
+            <td><div id="options1"></div></td>
+            <td><div id="options2"></div></td>
+            <td><div id="options3"></div></td>
+            <td><div id="options4"></div></td>
+            </tr>
+        </table>
+    </div>
     <button onclick="resetStory()">Reset</button>
     <script>
         //model
@@ -111,11 +133,11 @@
             objList2 = ["Nintendo Switch.","PS¤ ","skildpadde ","mann.","gutt.","dame.","jente.","Nordmann.","hest.","smøreost.","musiker.","tegner.","lefse.","bok.","lærer.","rotte."]
         ];
         
-        var option1 = "<span id='option1'> _____ </span>";
-        var option2 = "<span id='option2'> _____ </span>";
-        var option3 = "<span id='option3'> _____ </span>";
-        var option4 = "<span id='option4'> _____ </span>";
-        var option5 = "<span id='option5'> _____ </span>";
+        var option1 = "<span class='colourBoxes' id='option1'> _____ </span>";
+        var option2 = "<span class='colourBoxes' id='option2'> _____ </span>";
+        var option3 = "<span class='colourBoxes' id='option3'> _____ </span>";
+        var option4 = "<span class='colourBoxes' id='option4'> _____ </span>";
+        var option5 = "<span class='colourBoxes' id='option5'> _____ </span>";
 
         //view
         view();
@@ -130,34 +152,33 @@
 
         //controller
         var optionCount = 0;
+        var idButton=0;
         wordListList.forEach(list => {
             optionCount++;
             list.forEach(word => {
-                document.getElementById("options").innerHTML +=
+                document.getElementById("options"+idButton).innerHTML +=
                     "<button id='optionButton" + optionCount + "' onclick='insertWord(this," + optionCount + ")'>" + word + "</button>";
+                    
             });
-            document.getElementById("options").innerHTML += "<br></br>";
+            idButton++;
+            document.getElementById("options"+idButton).innerHTML += "<br></br>";
         });
         
+        /* no worky yet
         document.getElementById("optionButton").onmouseover = function() {highlightOption()};
         function highlightOption() {
             document.getElementsByTagName("optionButton").style.fontSize = "100px";
         }
+        */
 
         function resetStory() {
-            option1 = "<span id='option1'> _____ </span>";
-            option2 = "<span id='option2'> _____ </span>";
-            option3 = "<span id='option3'> _____ </span>";
-            option4 = "<span id='option4'> _____ </span>";
-            option5 = "<span id='option5'> _____ </span>";
+            option1 = "<span class='colourBoxes'id='option1'> _____ </span>";
+            option2 = "<span class='colourBoxes'id='option2'> _____ </span>";
+            option3 = "<span class='colourBoxes'id='option3'> _____ </span>";
+            option4 = "<span class='colourBoxes'id='option4'> _____ </span>";
+            option5 = "<span class='colourBoxes'id='option5'> _____ </span>";
             view();
-
-            //var options = [option1,option2,option3,option4,option5];
-            //var optionCount = 0;
-            //options.forEach(option => {
-            //    optionCount++;
-            //    option = "<span id='option" + optionCount + "'> _____ </span>";
-            //});
+            
         }
         function insertWord(word, wordNumber) {
             if (wordNumber == 1) {
@@ -181,7 +202,6 @@
             view();
         }
 
-        
     </script>
 </body>
 </html>
